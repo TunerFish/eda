@@ -197,8 +197,7 @@ def load(filepath):
         tracks = pd.read_csv(filepath, index_col=0, header=[0, 1])
 
         COLUMNS = [('track', 'tags'), ('album', 'tags'), ('artist', 'tags'),
-                   ('track', 'genres'), ('track', 'genres_all'),
-                   ('track', 'genres_top')]
+                   ('track', 'genres'), ('track', 'genres_all'), ('track', 'genres_top')]
         for column in COLUMNS:
             tracks[column] = tracks[column].map(ast.literal_eval)
 
@@ -313,7 +312,7 @@ def build_sample_loader(audio_dir, Y, loader):
 
             self.batch_size = batch_size
             self.loader = loader
-            self.X = np.empty((self.batch_size, *loader.shape))
+            self.X = np.empty((self.batch_size, loader.shape))
             self.Y = np.empty((self.batch_size, Y.shape[1]), dtype=np.int)
 
         def __iter__(self):
