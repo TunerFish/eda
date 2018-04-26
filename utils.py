@@ -195,9 +195,10 @@ def load(filepath):
 
     if 'tracks' in filename:
         tracks = pd.read_csv(filepath, index_col=0, header=[0, 1])
+        tracks = tracks.where((pd.notnull(tracks)), None)
 
         COLUMNS = [('track', 'tags'), ('album', 'tags'), ('artist', 'tags'),
-                   ('track', 'genres'), ('track', 'genres_all'), ('track', 'genres_top')]
+                   ('track', 'genres'), ('track', 'genres_all'), ('track', 'genre_top')]
         for column in COLUMNS:
             tracks[column] = tracks[column].map(ast.literal_eval)
 
